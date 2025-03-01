@@ -1,0 +1,15 @@
+current directory: /Users/pc/Documents/projects/zeego/vendor/bundle/ruby/3.1.0/gems/nkf-0.2.0/ext/nkf
+/Users/pc/.rbenv/versions/3.1.0/bin/ruby -I /Users/pc/.rbenv/versions/3.1.0/lib/ruby/3.1.0 -r ./siteconf20250301-8762-sv1ljb.rb extconf.rb
+creating Makefile
+
+current directory: /Users/pc/Documents/projects/zeego/vendor/bundle/ruby/3.1.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= clean
+
+current directory: /Users/pc/Documents/projects/zeego/vendor/bundle/ruby/3.1.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\=
+compiling nkf.c
+linking shared-object nkf.bundle
+
+current directory: /Users/pc/Documents/projects/zeego/vendor/bundle/ruby/3.1.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 nkf.bundle ./.gem.20250301-8762-ouec8e
