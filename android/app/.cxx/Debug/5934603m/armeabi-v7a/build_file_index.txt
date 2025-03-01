@@ -1,0 +1,2 @@
+/Users/pc/Documents/projects/zeego/node_modules/react-native-permissions/android/build/generated/source/codegen/jni/CMakeLists.txt
+/Users/pc/Documents/projects/zeego/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt

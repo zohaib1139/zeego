@@ -1,0 +1,14 @@
+# ninja log v5
+12	4967	1740866274487598050	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/RNPermissionsSpec-generated.cpp.o	71dbd414072acd99
+16	4647	1740866274172949122	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/Props.cpp.o	a5c89aa12bd5cc3e
+20	3667	1740866273184936170	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/States.cpp.o	c94e2155fcd1b8d3
+37	177	1740868807022930834	build.ninja	ebcd335ee0e676d5
+0	52	0	/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/armeabi-v7a/CMakeFiles/cmake.verify_globs	201cb14458579f01
+19	4807	1740866274328097902	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ShadowNodes.cpp.o	b81b7dd80253e96f
+13	5020	1740866274536024677	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ComponentDescriptors.cpp.o	cbeaadd01a9a2748
+9	5073	1740866274597984566	CMakeFiles/appmodules.dir/Users/pc/Documents/projects/zeego/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	31794af0580a7750
+18	4800	1740866274314169454	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/RNPermissionsSpecJSI-generated.cpp.o	27134a5ef2bb73c2
+15	4061	1740866273586256447	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/EventEmitters.cpp.o	f4b5c7dc3d437052
+10	5438	1740866274958088465	CMakeFiles/appmodules.dir/OnLoad.cpp.o	5721e36edab90db3
+5439	5620	1740866275156379445	/Users/pc/Documents/projects/zeego/android/app/build/intermediates/cxx/Debug/5934603m/obj/armeabi-v7a/libappmodules.so	cbc7c695ac375603
+0	34	0	/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/armeabi-v7a/CMakeFiles/cmake.verify_globs	201cb14458579f01

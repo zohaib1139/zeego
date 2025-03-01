@@ -1,0 +1,6 @@
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/armeabi-v7a/CMakeFiles/appmodules.dir
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/armeabi-v7a/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/armeabi-v7a/RNPermissionsSpec_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/armeabi-v7a/RNPermissionsSpec_autolinked_build/CMakeFiles/rebuild_cache.dir

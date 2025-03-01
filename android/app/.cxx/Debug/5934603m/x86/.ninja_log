@@ -1,0 +1,14 @@
+# ninja log v5
+13	5072	1740866280951503524	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/RNPermissionsSpec-generated.cpp.o	bf230c73717089f4
+15	4742	1740866280623662384	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/Props.cpp.o	bac80269fd02e4d6
+18	3759	1740866279636030581	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/States.cpp.o	71d0e15311eb020b
+5555	5732	1740866281625931410	/Users/pc/Documents/projects/zeego/android/app/build/intermediates/cxx/Debug/5934603m/obj/x86/libappmodules.so	e8195030d57d9082
+0	50	0	/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86/CMakeFiles/cmake.verify_globs	f69a331b7c9cd1a2
+43	170	1740868807881514638	build.ninja	a9b841d8a0dccdd8
+13	4987	1740866280869873382	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ShadowNodes.cpp.o	151070cfa06833f0
+13	5152	1740866281033687559	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ComponentDescriptors.cpp.o	a5c33db2922c79c7
+12	5209	1740866281090992877	CMakeFiles/appmodules.dir/Users/pc/Documents/projects/zeego/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	6284e88f7212bf3b
+16	4904	1740866280778065563	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/RNPermissionsSpecJSI-generated.cpp.o	b732ba361ea7bd0c
+14	4161	1740866280040354358	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/EventEmitters.cpp.o	93b37ee6b3c5881f
+12	5555	1740866281434263025	CMakeFiles/appmodules.dir/OnLoad.cpp.o	9d443bc2d55dd42
+0	30	0	/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86/CMakeFiles/cmake.verify_globs	f69a331b7c9cd1a2

@@ -1,0 +1,7 @@
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/RNPermissionsSpec-generated.cpp.o
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ComponentDescriptors.cpp.o
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/EventEmitters.cpp.o
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/Props.cpp.o
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/RNPermissionsSpecJSI-generated.cpp.o
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ShadowNodes.cpp.o
+/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/States.cpp.o

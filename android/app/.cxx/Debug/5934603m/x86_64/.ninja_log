@@ -1,0 +1,14 @@
+# ninja log v5
+8	4331	1740866286148184813	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/RNPermissionsSpec-generated.cpp.o	5f8aff59e873878b
+9	3875	1740866285692127418	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/Props.cpp.o	1d53542ea73d2a0e
+10	2861	1740866284676019324	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/States.cpp.o	d8a9d13e7e239c52
+4788	4966	1740866286797965464	/Users/pc/Documents/projects/zeego/android/app/build/intermediates/cxx/Debug/5934603m/obj/x86_64/libappmodules.so	e3ddb9bf85eb3600
+9	4051	1740866285856067665	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/RNPermissionsSpecJSI-generated.cpp.o	828d10c1ecbde2a7
+0	32	0	/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86_64/CMakeFiles/cmake.verify_globs	6be24a5f250ffef1
+33	133	1740868808724787238	build.ninja	4e6027452a81beb0
+10	4217	1740866286034417940	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ShadowNodes.cpp.o	18ed575e1e0db340
+8	4355	1740866286171610465	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ComponentDescriptors.cpp.o	f71906b4fb1a26bc
+7	4430	1740866286244992611	CMakeFiles/appmodules.dir/Users/pc/Documents/projects/zeego/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	e48eb33eeb664b4e
+9	3358	1740866285093165895	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/EventEmitters.cpp.o	7d1b45d6bf720b87
+7	4788	1740866286606663960	CMakeFiles/appmodules.dir/OnLoad.cpp.o	46cc5f6d53fc4444
+1	38	0	/Users/pc/Documents/projects/zeego/android/app/.cxx/Debug/5934603m/x86_64/CMakeFiles/cmake.verify_globs	6be24a5f250ffef1
