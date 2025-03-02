@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, findNodeHandle, PermissionsAndroid, Platform } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, StyleSheet, findNodeHandle, PermissionsAndroid, Platform, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import ZegoExpressEngine, { ZegoRoomConfig, ZegoTextureView } from 'zego-express-engine-reactnative';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
@@ -7,106 +7,111 @@ export default function App() {
   const localViewRef = useRef(null);
   const remoteViewRef = useRef(null);
   const engineRef = useRef(null);
+  const [isFrontCamera, setIsFrontCamera] = useState(true);
 
-  const streamID = "streamID";
+  const streamID = "streamID_" + Math.floor(Math.random() * 10000); // Unique streamID
+  console.log("+++++++++++++", streamID)
   const roomID = "room1";
   const userID = "user_" + Math.floor(Math.random() * 10000);
 
-  // Android Permission Request Function
+  const toggleCamera = async () => {
+    if (!engineRef.current) return;
+    
+    try {
+      const newCameraState = !isFrontCamera;
+      await engineRef.current.useFrontCamera(newCameraState);
+      setIsFrontCamera(newCameraState);
+
+      // Restart preview after camera switch
+      const localHandle = findNodeHandle(localViewRef.current);
+      if (localHandle) {
+        await engineRef.current.startPreview({
+          reactTag: localHandle,
+          viewMode: 0,
+          backgroundColor: 0
+        });
+      }
+    } catch (error) {
+      console.error("Camera toggle failed:", error);
+    }
+  };
+
+  // Android Permissions
   const requestAndroidPermissions = async () => {
     try {
-      if (Platform.OS === 'android') {
-        const permissions = [
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-        ];
-
-        const granted = await PermissionsAndroid.requestMultiple(permissions);
-        
-        return Object.values(granted).every(
-          status => status === PermissionsAndroid.RESULTS.GRANTED
-        );
-      }
-      return true;
+      const permissions = [
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+      ];
+      const granted = await PermissionsAndroid.requestMultiple(permissions);
+      return Object.values(granted).every(
+        status => status === PermissionsAndroid.RESULTS.GRANTED
+      );
     } catch (err) {
-      console.log('Permission error:', err);
+      console.warn('Permission error:', err);
       return false;
     }
   };
 
-  // iOS Permission Request Function
+  // iOS Permissions
   const requestIOSPermissions = async () => {
-    if (Platform.OS === 'ios') {
-      const camera = await request(PERMISSIONS.IOS.CAMERA);
-      const mic = await request(PERMISSIONS.IOS.MICROPHONE);
-      return camera === RESULTS.GRANTED && mic === RESULTS.GRANTED;
-    }
-    return true;
+    const cameraStatus = await request(PERMISSIONS.IOS.CAMERA);
+    const micStatus = await request(PERMISSIONS.IOS.MICROPHONE);
+    return cameraStatus === RESULTS.GRANTED && micStatus === RESULTS.GRANTED;
   };
 
   useEffect(() => {
     const initializeEngine = async () => {
       try {
         // 1. Request permissions
-        const hasPermissions = await requestAndroidPermissions() || await requestIOSPermissions();
+        let hasPermissions;
+        if (Platform.OS === 'android') {
+          hasPermissions = await requestAndroidPermissions();
+        } else if (Platform.OS === 'ios') {
+          hasPermissions = await requestIOSPermissions();
+        }
         if (!hasPermissions) {
           console.log("❌ Permissions denied");
           return;
         }
 
-        // 2. Initialize ZegoExpressEngine
+        // 2. Initialize Engine
         const profile = {
           appID: 290833566,
           appSign: '98eec7c53826bb2719130e350c8b99072a07f0a8d428e98fdfebf1a68fd6c1e3',
           scenario: 0,
         };
-
         const engine = await ZegoExpressEngine.createEngineWithProfile(profile);
         engineRef.current = engine;
 
-        // 3. Setup event listeners
-        setupEventListeners(engine);
-        
-        // 4. Login to room
+        // 4. Login to Room
         const roomConfig = new ZegoRoomConfig();
         roomConfig.isUserStatusNotify = true;
         await engine.loginRoom(roomID, { userID, userName: userID }, roomConfig);
 
-        // 5. Start local preview **before publishing**
-        setTimeout(async () => {
-          const localHandle = findNodeHandle(localViewRef.current);
-          if (!localHandle) {
-            console.error("❌ Local handle not found!");
-            return;
-          }
-
-          console.log("✅ Local handle:", localHandle);
+        // 5. Start Preview & Publish
+        const localHandle = findNodeHandle(localViewRef.current);
+        if (localHandle) {
           await engine.startPreview({
             reactTag: localHandle,
             viewMode: 0,
             backgroundColor: 0,
           });
-
-          // 6. Now start publishing stream
           await engine.startPublishingStream(streamID);
-          console.log("✅ Started publishing stream:", streamID);
-        }, 1000);
+        }
 
-        // 7. Start playing remote stream
-        setTimeout(async () => {
-          const remoteHandle = findNodeHandle(remoteViewRef.current);
-          if (!remoteHandle) {
-            console.error("❌ Remote handle not found!");
-            return;
-          }
+        const remoteHandle = findNodeHandle(remoteViewRef.current);
+        if (!remoteHandle) {
+          console.error("❌ Remote handle not found!");
+          return;
+        }
 
-          console.log("✅ Remote handle:", remoteHandle);
-          engine.startPlayingStream(streamID, {
-            reactTag: remoteHandle,
-            viewMode: 0,
-            backgroundColor: 0,
-          });
-        }, 2000);
+        console.log("✅ Remote handle:", remoteHandle);
+        engine.startPlayingStream(streamID, {
+          reactTag: remoteHandle,
+          viewMode: 0,
+          backgroundColor: 0,
+        }); 
 
       } catch (error) {
         console.error("❌ Initialization error:", error);
@@ -115,11 +120,9 @@ export default function App() {
 
     initializeEngine();
 
-    // Cleanup function
     return () => {
       if (engineRef.current) {
         engineRef.current.stopPreview();
-        engineRef.current.stopPlayingStream(streamID);
         engineRef.current.stopPublishingStream(streamID);
         engineRef.current.logoutRoom(roomID);
         ZegoExpressEngine.destroyEngine();
@@ -127,67 +130,119 @@ export default function App() {
     };
   }, []);
 
-  // Event Listeners
-  const setupEventListeners = (engine) => {
-    engine.on('roomStateUpdate', (roomID, state, errorCode, extendedData) => {
-      console.log("ℹ️ Room state updated:", state);
-    });
-
-    engine.on('roomUserUpdate', (roomID, updateType, userList) => {
-      console.log("👥 User update:", updateType, userList);
-    });
-
-    engine.on('roomStreamUpdate', (roomID, updateType, streamList) => {
-      console.log("📡 Stream update:", updateType, streamList);
-    });
-  };
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Live Video Preview</Text>
+    <SafeAreaView style={styles.safeArea}>
+    <ScrollView 
+      contentContainerStyle={styles.scrollContent}
+      showsVerticalScrollIndicator={false}
+    >
+      <Text style={styles.title}>Live Video Streaming</Text>
       
-      {/* Local Preview */}
-      <View style={styles.videoContainer}>
+      {/* Local Video Container */}
+      <View style={styles.videoWrapper}>
         <ZegoTextureView ref={localViewRef} style={styles.video} />
-        <Text style={styles.label}>Local Preview</Text>
+        <Text style={styles.videoLabel}>Your Camera</Text>
       </View>
 
-      {/* Remote Video */}
-      <View style={styles.videoContainer}>
+      {/* Remote Video Container */}
+      <View style={styles.videoWrapper}>
         <ZegoTextureView ref={remoteViewRef} style={styles.video} />
-        <Text style={styles.label}>Remote Video</Text>
+        <Text style={styles.videoLabel}>Remote Stream</Text>
       </View>
+
+      {/* Additional Content Area */}
+      <View style={styles.infoBox}>
+        <Text style={styles.infoText}>Room ID: {roomID}</Text>
+        <Text style={styles.infoText}>User ID: {userID}</Text>
+      </View>
+    </ScrollView>
+
+    {/* Fixed Footer with Controls */}
+    <View style={styles.controlsContainer}>
+      <TouchableOpacity 
+        style={[styles.button, styles.flipButton]}
+        onPress={toggleCamera}
+      >
+        <Text style={styles.buttonText}>Flip Camera</Text>
+      </TouchableOpacity>
     </View>
-  );
+  </SafeAreaView>
+);
 }
 
-// Styles remain the same...
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#000",
-  },
-  title: {
-    fontSize: 20,
-    color: "#fff",
-    marginBottom: 20,
-  },
-  videoContainer: {
-    width: 300,
-    height: 400,
-    backgroundColor: "#222",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  video: {
-    width: 300,
-    height: 400,
-  },
-  label: {
-    color: "#fff",
-    marginTop: 5,
-  },
+safeArea: {
+  flex: 1,
+  backgroundColor: '#1A1A1A',
+},
+scrollContent: {
+  flexGrow: 1,
+  padding: 16,
+  paddingBottom: 80, // Space for fixed controls
+},
+title: {
+  fontSize: 24,
+  color: '#FFF',
+  fontWeight: '600',
+  marginBottom: 24,
+  textAlign: 'center',
+},
+videoWrapper: {
+  backgroundColor: '#2D2D2D',
+  borderRadius: 12,
+  marginBottom: 20,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  elevation: 5,
+},
+video: {
+  width: '100%',
+  aspectRatio: 16/9, // Maintain video aspect ratio
+  borderRadius: 12,
+},
+videoLabel: {
+  color: '#FFF',
+  padding: 8,
+  fontSize: 14,
+  textAlign: 'center',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  borderBottomLeftRadius: 12,
+  borderBottomRightRadius: 12,
+},
+infoBox: {
+  backgroundColor: '#2D2D2D',
+  borderRadius: 12,
+  padding: 16,
+  marginTop: 12,
+},
+infoText: {
+  color: '#FFF',
+  fontSize: 14,
+  marginBottom: 8,
+},
+controlsContainer: {
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  backgroundColor: 'rgba(45,45,45,0.9)',
+  padding: 16,
+  borderTopLeftRadius: 16,
+  borderTopRightRadius: 16,
+},
+button: {
+  paddingVertical: 12,
+  borderRadius: 8,
+  alignItems: 'center',
+  marginBottom: 8,
+},
+flipButton: {
+  backgroundColor: '#007AFF',
+},
+buttonText: {
+  color: '#FFF',
+  fontWeight: '500',
+},
 });
