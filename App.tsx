@@ -169,11 +169,6 @@ export default function App() {
     >
       <Text style={styles.title}>Live Video Streaming</Text>
       
-      {/* Local Video Container
-      <View style={styles.videoWrapper}>
-        <ZegoTextureView ref={localViewRef} style={styles.video} />
-        <Text style={styles.videoLabel}>Your Camera</Text>
-      </View> */}
       {/* Local Video */}
       {isVideoOn && (
           <View style={styles.videoWrapper}>
