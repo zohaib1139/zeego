@@ -8,9 +8,9 @@ export default function App() {
   const remoteViewRef = useRef(null);
   const engineRef = useRef(null);
   const [isFrontCamera, setIsFrontCamera] = useState(true);
+  const [isVideoOn, setIsVideoOn] = useState(true);
 
   const streamID = "streamID_" + Math.floor(Math.random() * 10000); // Unique streamID
-  console.log("+++++++++++++", streamID)
   const roomID = "room1";
   const userID = "user_" + Math.floor(Math.random() * 10000);
 
@@ -33,6 +33,37 @@ export default function App() {
       }
     } catch (error) {
       console.error("Camera toggle failed:", error);
+    }
+  };
+
+  const toggleVideo = async () => {
+    try {
+      if (!engineRef.current) return;
+
+      const newVideoState = !isVideoOn;
+      
+      // Toggle video state
+      await engineRef.current.enableCamera(newVideoState);
+      
+      if (newVideoState) {
+        // Start preview if turning video on
+        const localHandle = findNodeHandle(localViewRef.current);
+        if (localHandle) {
+          await engineRef.current.startPreview({
+            reactTag: localHandle,
+            viewMode: 0,
+            backgroundColor: 0
+          });
+        }
+      } else {
+        // Stop preview if turning video off
+        await engineRef.current.stopPreview();
+      }
+      
+      setIsVideoOn(newVideoState);
+    } catch (error) {
+      Alert.alert('Video Error', error.message);
+      console.error("Video toggle failed:", error);
     }
   };
 
@@ -138,11 +169,18 @@ export default function App() {
     >
       <Text style={styles.title}>Live Video Streaming</Text>
       
-      {/* Local Video Container */}
+      {/* Local Video Container
       <View style={styles.videoWrapper}>
         <ZegoTextureView ref={localViewRef} style={styles.video} />
         <Text style={styles.videoLabel}>Your Camera</Text>
-      </View>
+      </View> */}
+      {/* Local Video */}
+      {isVideoOn && (
+          <View style={styles.videoWrapper}>
+            <ZegoTextureView ref={localViewRef} style={styles.video} />
+            <Text style={styles.videoLabel}>Your Camera</Text>
+          </View>
+        )}
 
       {/* Remote Video Container */}
       <View style={styles.videoWrapper}>
@@ -157,15 +195,25 @@ export default function App() {
       </View>
     </ScrollView>
 
-    {/* Fixed Footer with Controls */}
-    <View style={styles.controlsContainer}>
-      <TouchableOpacity 
-        style={[styles.button, styles.flipButton]}
-        onPress={toggleCamera}
-      >
-        <Text style={styles.buttonText}>Flip Camera</Text>
-      </TouchableOpacity>
-    </View>
+    {/* Controls */}
+      <View style={styles.controlsContainer}>
+        <TouchableOpacity
+          style={[styles.button, styles.videoButton, !isVideoOn && styles.disabledButton]}
+          onPress={toggleVideo}
+        >
+          <Text style={styles.buttonText}>
+            {isVideoOn ? 'Video Off' : 'Video On'}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.button, styles.flipButton, !isVideoOn && styles.disabledButton]}
+          onPress={toggleCamera}
+          disabled={!isVideoOn}
+        >
+          <Text style={styles.buttonText}>Flip Camera</Text>
+        </TouchableOpacity>
+      </View>
   </SafeAreaView>
 );
 }
@@ -244,5 +292,33 @@ flipButton: {
 buttonText: {
   color: '#FFF',
   fontWeight: '500',
+},
+controlsContainer: {
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  backgroundColor: 'rgba(45,45,45,0.95)',
+  padding: 16,
+  borderTopLeftRadius: 16,
+  borderTopRightRadius: 16,
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+},
+button: {
+  paddingVertical: 14,
+  borderRadius: 8,
+  alignItems: 'center',
+  minWidth: 120,
+},
+flipButton: {
+  backgroundColor: '#007AFF',
+},
+videoButton: {
+  backgroundColor: '#34C759',
+},
+disabledButton: {
+  backgroundColor: '#6C6C6C',
+  opacity: 0.7,
 },
 });
